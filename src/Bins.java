@@ -13,7 +13,7 @@ public class Bins{
     public static HashMap<Integer, ArrayList<BabyName>> femaleNamesMap = new HashMap<>();
     public static HashMap<Integer, ArrayList<BabyName>> maleNamesMap = new HashMap<>();
 
-    //process
+    //Input
     public List<String> readData (Scanner input) {
         var results = new ArrayList<String>();
         while (input.hasNext()) {
@@ -22,6 +22,7 @@ public class Bins{
         return results;
     }
 
+    //Process
     public void fillMap(String gender, int year, BabyName name){
         var map = femaleNamesMap;
         if(gender.toUpperCase().equals("M")){
@@ -129,41 +130,6 @@ public class Bins{
                     BabyName tempName = new BabyName(name, gen, year, count, "NA");
                     //If this year has already been accounted for -- add to that arrayList of babynames
                     b.fillMap(gen, year, tempName);
-                    /*if(gen.equals("F")){
-                        if(femaleNamesMap.keySet().contains(year)){
-                            var tempList = femaleNamesMap.get(year);
-                            tempList.add(tempName);
-                            femaleNamesMap.put(year, tempList);
-                        }
-                        else{
-                            ArrayList<BabyName> newList = new ArrayList<>();
-                            newList.add(tempName);
-                            femaleNamesMap.put(year, newList);
-                        }
-                    }
-                    else{
-                        if(maleNamesMap.keySet().contains(year)){
-                            var tempList = maleNamesMap.get(year);
-                            tempList.add(tempName);
-                            maleNamesMap.put(year, tempList);
-                        }
-                        else{
-                            ArrayList<BabyName> newList = new ArrayList<>();
-                            newList.add(tempName);
-                            maleNamesMap.put(year, newList);
-                        }
-                    }*/
-                    /*if(namesMap.keySet().contains(year)){
-                        var tempList = namesMap.get(year);
-                        tempList.add(tempName);
-                        namesMap.put(year, tempList);
-                    }
-                    //If year not in namesMap (either because it is empty or new year, create new input
-                    else{
-                        ArrayList<BabyName> newList = new ArrayList<>();
-                        newList.add(tempName);
-                        namesMap.put(year, newList);
-                    }*/
                 }
             }
         }
