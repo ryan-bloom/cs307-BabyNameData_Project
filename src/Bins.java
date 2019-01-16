@@ -12,6 +12,7 @@ public class Bins{
     //public static HashMap<Integer, ArrayList<BabyName>> namesMap = new HashMap<>();
     public static HashMap<Integer, ArrayList<BabyName>> femaleNamesMap = new HashMap<>();
     public static HashMap<Integer, ArrayList<BabyName>> maleNamesMap = new HashMap<>();
+    public static HashMap<String, String> nameMeaningsMap = new HashMap<>();
 
     //Input
     public List<String> readData (Scanner input) {
@@ -23,7 +24,7 @@ public class Bins{
     }
 
     //Process
-    public void fillMap(String gender, int year, BabyName name){
+    public void fillNamesMap(String gender, int year, BabyName name){
         var map = femaleNamesMap;
         if(gender.toUpperCase().equals("M")){
             map = maleNamesMap;
@@ -38,6 +39,16 @@ public class Bins{
             newList.add(name);
             map.put(year, newList);
         }
+    }
+
+    public void fillMeaningsMap(String input){
+        int dex = input.indexOf(" ");
+        String nameSub = input.substring(0,dex);
+        String genSub = input.substring(dex + 1, dex + 2);
+        String meaningSub = input.substring(dex+3);
+        //meaningsMap key: NAME-F/M = value: meaning
+        String key = nameSub.toUpperCase() + "-" + genSub.toUpperCase();
+        nameMeaningsMap.put(key, meaningSub);
     }
 
     //Output
@@ -108,6 +119,12 @@ public class Bins{
         var inputMeanings = new Scanner(Bins.class.getClassLoader().getResourceAsStream(DATA_FILE));
         //Need to add this to BabyName objects
         var dataMeanings = b.readData(inputMeanings);
+        //System.out.println(dataMeanings.get(0));
+        for(int i=0; i<dataMeanings.size(); i++){
+            b.fillMeaningsMap(dataMeanings.get(i));
+        }
+        //System.out.println(nameMeaningsMap);
+        //b.fillMeaningsMap(dataMeanings.get(0));
         //System.out.println(dataMeanings);
         File folder = new File("data");
         File[] listOfFiles = folder.listFiles();
@@ -119,6 +136,7 @@ public class Bins{
                 int year = Integer.parseInt(listOfFiles[i].getName().substring(3,7));
                 var input = new Scanner(Bins.class.getClassLoader().getResourceAsStream(DATA_FILE2));
                 var data = b.readData(input);
+                //System.out.println(data.get(0));
 
                 //Loop through all lines in data
                 for(int j=0; j<data.size(); j++){
@@ -126,13 +144,21 @@ public class Bins{
                     String name = tempData[0].toUpperCase();
                     String gen = tempData[1].toUpperCase();
                     int count = Integer.parseInt(tempData[2]);
+                    String meaning = "NA";
+                    if(nameMeaningsMap.containsKey(name+"-"+gen)){
+                        //System.out.println(name+"-"+gen);
+                        meaning = nameMeaningsMap.get(name+"-"+gen);
+                    }
 
-                    BabyName tempName = new BabyName(name, gen, year, count, "NA");
+                    BabyName tempName = new BabyName(name, gen, year, count, meaning);
                     //If this year has already been accounted for -- add to that arrayList of babynames
-                    b.fillMap(gen, year, tempName);
+                    b.fillNamesMap(gen, year, tempName);
                 }
             }
         }
+
+        //System.out.println(femaleNamesMap.get(1997).get(10).getName());
+        //System.out.println(femaleNamesMap.get(1997).get(10).getMeaning());
 
         //TESTS- OUTPUTS (ipO)
         /**
