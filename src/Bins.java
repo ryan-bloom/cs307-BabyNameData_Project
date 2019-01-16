@@ -9,7 +9,7 @@ public class Bins{
     public static final String DATA_FILE = "baby_name_meanings.txt";
 
     //public static ArrayList<BabyNameYear> namesByYear = new ArrayList<>();
-    public static HashMap<Integer, ArrayList<BabyName>> namesMap = new HashMap<>();
+    //public static HashMap<Integer, ArrayList<BabyName>> namesMap = new HashMap<>();
     public static HashMap<Integer, ArrayList<BabyName>> femaleNamesMap = new HashMap<>();
     public static HashMap<Integer, ArrayList<BabyName>> maleNamesMap = new HashMap<>();
 
@@ -172,7 +172,7 @@ public class Bins{
          */
         System.out.println("TEST 4: 2010-2020 RANKINGS SUZANNE/F");
         b.getRankingsByYear("Suzanne", "f", 2010, 2020);
-        System.out.println("\n");
+        //System.out.println("\n");
     }
 }
 
